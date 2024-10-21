@@ -1,19 +1,29 @@
 import express from "express"
+import { StatusCodes } from "http-status-codes"
 
 const app = express ()
 
-app.get("/", (req, res) => {
-    res.send("Hello World")
+const checkAuth = (req : express.Request, res : express.Response, next : express.NextFunction) => {
+    //TODO: check auth
+    //next();
+    next(StatusCodes.UNAUTHORIZED)
+}
+
+app.get("/", checkAuth, (req : express.Request, res : express.Response) => {
+    res.send("Hello World");
 })
 
-app.get("/", (req : express.Request, res : express.Response, next : express.NextFunction) => {
-    res.write("Hello");
-    next();
-    res.write(" !!!"); 
-    res.end();   
-})
+
+const handleErrors = (err : any, req : express.Request, res : express.Response, next : express.NextFunction) => {
+    console.log(err);
+    if(typeof err === "number") {
+        res.sendStatus(err);
+        return;
+    }
+    res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+}
+app.use(handleErrors)
 
 app.listen(process.env.PORT, () => {
-    console.log("Server started on port ", process.env.PORT)
+    console.log("Server started on port", process.env.PORT)
 })
-
