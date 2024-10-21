@@ -1,15 +1,15 @@
-import {model, Schema} from "mongoose";
+export type TokenUser = {
+    id : string
+    email : string
+}
 
-const userSchema = new Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
-})
+export type UserLoginForm = {
+    email : string
+    password : string
+}
 
-const User = model('User', userSchema);
-export {User}
+export type UserRegisterForm = {
+    email : string
+    password : string
+    confirmPassword : string
+}
