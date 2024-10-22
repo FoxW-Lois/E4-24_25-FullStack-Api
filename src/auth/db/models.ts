@@ -1,18 +1,25 @@
 import { model, Schema } from "mongoose";
 
 const dbUserSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true, 
+        index: true 
     },
-    password: {
-        type: String,
-        required: true
+    password: { 
+        type: String, 
+        required: true 
     },
-    expiredTokens : {type : [String], default : []}
-})
+    expiredTokens: { 
+        type: [String], 
+        default: [] 
+    },
+    refreshTokens: { 
+        type: [String], 
+        default: [] 
+    }
+});
 
 const DbUser = model("User", dbUserSchema);
 
