@@ -1,8 +1,9 @@
-import cookieParser from "cookie-parser";
-import express from "express";
-import { StatusCodes } from "http-status-codes";
-import { checkAuth } from "./auth/midlewares";
-import { createAuthRoutes } from "./auth/router";
+import cookieParser from 'cookie-parser';
+import express from 'express';
+import { StatusCodes } from 'http-status-codes';
+import { checkAccessToken } from './auth/midlewares';
+import { createAuthRoutes } from './auth/router';
+import {HttpError} from "http-errors";
 
 export const createApp = () => {
     const app = express();
@@ -12,9 +13,8 @@ export const createApp = () => {
 
     app.use(createAuthRoutes());
 
-    app.get("/", checkAuth, (req: express.Request, res: express.Response) => {
-        console.log("user", req.user!);
-        res.send("Hello World!");
+    app.get('/', checkAccessToken, (req: express.Request, res: express.Response) => {
+        res.send('Hello World!');
     });
 
     const handleErrors = (
@@ -24,14 +24,15 @@ export const createApp = () => {
         next: express.NextFunction
     ) => {
         console.log(err);
-        if (typeof err === "number") {
-            res.sendStatus(err);
+        if (err instanceof HttpError) {
+            res.status(err.status);
+            res.send(err.message);
             return;
         }
         res.sendStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-    };
+    }
 
     app.use(handleErrors);
 
     return app;
-};
+}

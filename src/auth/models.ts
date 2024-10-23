@@ -1,14 +1,14 @@
 export type TokenUser = {
-    email : string
-}
-
+    email: string
+};
+  
 export type UserLoginData = {
-    email : string
-    password : string
-}
-
+    email: string
+    password: string
+};
+  
 export type UserSignupData = {
-    email : string
-    password : string
-    confirmPassword : string
-}
+    email: string
+    password: string
+    confirmPassword: string
+};
