@@ -5,13 +5,13 @@ import { Request, Response } from 'express';
 import { hash } from 'bcrypt';
 
 export const cleanExpiredAccessTokensFromDB = async () => {
-    const usersWithTokens = await DbUser.find({expiredAccessTokens: { $exists: true, $not: { $size: 0 } }}).limit(100);
+    const usersWithTokens = await DbUser.find({ expiredAccessTokens: { $exists: true, $not: { $size: 0 } } }).limit(100);
     for (const user of usersWithTokens) {
         for (const dbToken of user.expiredAccessTokens) {
             try {
-                const token = verify(dbToken,process.env.JWT_ACCESS_TOKEN_SECRET!) as JwtPayload
+                const token = verify(dbToken, process.env.JWT_ACCESS_TOKEN_SECRET!) as JwtPayload
             } catch (error) {
-                await DbUser.updateOne({ email: user.email },{ $pull: { expiredAccessTokens: dbToken }}
+                await DbUser.updateOne({ email: user.email }, { $pull: { expiredAccessTokens: dbToken } }
                 )
             }
         }

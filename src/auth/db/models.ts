@@ -1,6 +1,13 @@
-import { model, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 import uniqueValidator from "mongoose-unique-validator";
 import httpErrors from "mongoose-errors";
+
+interface IDbUser extends Document {
+    email: string;
+    password: string;
+    expiredAccessTokens: string[];
+    expiredRefreshTokens: string[];
+}
 
 const dbUserSchema = new Schema({
     email: {
@@ -19,6 +26,6 @@ const dbUserSchema = new Schema({
 dbUserSchema.plugin(uniqueValidator);
 dbUserSchema.plugin(httpErrors);
 
-const DbUser = model('User', dbUserSchema);
+const DbUser = model<IDbUser>('User', dbUserSchema);
 
 export { DbUser, dbUserSchema };

@@ -12,5 +12,5 @@ mongoose.connect(process.env.MONGO_URI!).then(async () => {
     });
 })
 
-const everySomething = process.env.SCHEDULE_CLEANING_FREQUENCY!;
+const everySomething = process.env.SCHEDULE_CLEANING_FREQUENCY || '* * * * *';
 schedule(everySomething, cleanExpiredAccessTokensFromDB);
