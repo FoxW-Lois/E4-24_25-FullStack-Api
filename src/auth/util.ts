@@ -1,36 +1,23 @@
 import { JwtPayload, sign, verify, } from 'jsonwebtoken';
 import { DbUser } from './db/models';
-import { TokenUser } from './models';
 import { Request, Response } from 'express';
 import { hash } from 'bcrypt';
+import { TokenData, UserData } from './models'
 
-export const cleanExpiredAccessTokensFromDB = async () => {
-    const usersWithTokens = await DbUser.find({ expiredAccessTokens: { $exists: true, $not: { $size: 0 } } }).limit(100);
-    for (const user of usersWithTokens) {
-        for (const dbToken of user.expiredAccessTokens) {
-            try {
-                const token = verify(dbToken, process.env.JWT_ACCESS_TOKEN_SECRET!) as JwtPayload
-            } catch (error) {
-                await DbUser.updateOne({ email: user.email }, { $pull: { expiredAccessTokens: dbToken } }
-                )
-            }
-        }
-    }
-}
 
-export function createAccessToken(user: TokenUser) {
+export function createAccessToken(user: TokenData) {
     return sign(user, process.env.JWT_ACCESS_TOKEN_SECRET!, {
         expiresIn: process.env.JWT_ACCESS_TOKEN_LIFETIME!
     });
 }
 
-export function createRefreshToken(user: TokenUser) {
+export function createRefreshToken(user: TokenData) {
     return sign(user, process.env.JWT_REFRESH_TOKEN_SECRET!, {
         expiresIn: process.env.JWT_REFRESH_TOKEN_LIFETIME!
     });
 }
 
-export function addAccessToken(user: TokenUser, res: Response) {
+export function addAccessToken(user: TokenData, res: Response) {
     const token = createAccessToken(user);
 
     res.cookie(process.env.JWT_ACCESS_TOKEN_NAME!, token, {
@@ -40,7 +27,7 @@ export function addAccessToken(user: TokenUser, res: Response) {
     });
 }
 
-export function addRefreshToken(user: TokenUser, res: Response) {
+export function addRefreshToken(user: TokenData, res: Response) {
     const token = createRefreshToken(user);
     res.cookie(process.env.JWT_REFRESH_TOKEN_NAME!, token, {
         secure: process.env.NODE_ENV === 'production',
@@ -49,11 +36,12 @@ export function addRefreshToken(user: TokenUser, res: Response) {
     });
 }
 
-export async function createTokenUser(user: TokenUser, req: Request) {
+export async function createTokenUser(user: UserData, req: Request) {
     return {
+        name: user.name,
         email: user.email,
-        fingerprint: await createUserFingerprint(req)
-    };
+        roles: []
+    }
 }
 
 export async function createUserFingerprint(req: Request) {

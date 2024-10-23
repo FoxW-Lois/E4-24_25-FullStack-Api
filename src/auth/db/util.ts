@@ -1,14 +1,29 @@
-import { TokenUser } from "../models";
 import { DbUser } from "./models";
+import { JwtPayload, verify } from "jsonwebtoken";
+import { UserData } from "../models";
 
-export async function blackListAccessToken(user:TokenUser,token:string){
+export const cleanExpiredAccessTokensFromDB = async () => {
+    const usersWithTokens = await DbUser.find({expiredAccessTokens: { $exists: true, $not: { $size: 0 } }}).limit(100);
+    
+    for (const user of usersWithTokens) {
+        for (const dbToken of user.accessTokens) {
+            try {
+                const token = verify(dbToken,process.env.JWT_ACCESS_TOKEN_SECRET!) as JwtPayload;
+            } catch (error) {
+                await DbUser.updateOne({ email: user.email },{ $pull: { expiredAccessTokens: dbToken } });
+            }
+        }
+    }
+}
+
+export async function blackListAccessToken(user: UserData, token: string) {
     const dbUser = await DbUser.findOne({ email: user.email });
-    dbUser!.expiredAccessTokens.push(token as string);
+    dbUser!.accessTokens.push(token as string);
     await dbUser!.save();
 }
 
-export async function blackListRefreshToken(user:TokenUser,token:string){
+export async function blackListRefreshToken(user: UserData, token: string) {
     const dbUser = await DbUser.findOne({ email: user.email });
-    dbUser!.expiredRefreshTokens.push(token as string);
+    dbUser!.refreshTokens.push(token as string);
     await dbUser!.save();
 }
