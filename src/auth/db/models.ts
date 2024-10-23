@@ -1,9 +1,46 @@
 import { Document, model, Schema } from 'mongoose';
 import uniqueValidator from "mongoose-unique-validator";
 import httpErrors from "mongoose-errors";
-import { Blacklist, UserData, UserDetails } from '../models';
+import { Blacklist, UserData, UserDetails, Permission } from '../models';
 
-const dbUserSchema = new Schema({
+// Interface pour le modèle Role
+interface IRole extends Document {
+    name: string;
+    permissions: Array<Permission>;
+}
+
+// Schéma pour Role
+const dbRoleSchema = new Schema<IRole>({
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        index: true
+    },
+    permissions: [{
+        actions: [{
+            type: String,
+            required: true
+        }],
+        resources: [{
+            type: String,
+            required: true
+        }]
+    }],
+});
+dbRoleSchema.plugin(uniqueValidator);
+dbRoleSchema.plugin(httpErrors);
+
+// Modèle Role
+const DbRole = model<IRole>('Role', dbRoleSchema);
+
+export { DbRole, dbRoleSchema };
+
+// Interface pour le modèle User
+interface IUser extends Document, UserData, UserDetails, Blacklist { }
+
+// Schéma pour User
+const dbUserSchema = new Schema<IUser>({
     name: {
         type: String,
         required: true,
@@ -28,31 +65,7 @@ const dbUserSchema = new Schema({
 dbUserSchema.plugin(uniqueValidator);
 dbUserSchema.plugin(httpErrors);
 
-const DbUser = model<UserData & UserDetails & Blacklist>('User', dbUserSchema);
+// Modèle User
+const DbUser = model<IUser>('User', dbUserSchema);
 
 export { DbUser, dbUserSchema };
-
-const dbRoleSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
-    },
-    permissions: [{
-        actions: [{
-            type: String,
-            required: true
-        }],
-        resources: [{
-            type: String,
-            required: true
-        }]
-    }],
-})
-dbRoleSchema.plugin(uniqueValidator);
-dbRoleSchema.plugin(httpErrors);
-
-const DbRole = model('Role', dbRoleSchema);
-
-export { DbRole, dbRoleSchema };
