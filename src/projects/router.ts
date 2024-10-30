@@ -1,6 +1,6 @@
-import { NextFunction, Request, Router } from "express";
-import { DbProject } from "./db/models";
-import { StatusCodes } from "http-status-codes";
+import { NextFunction, Request, Router } from 'express';
+import { DbProject } from './db/models';
+import { StatusCodes } from 'http-status-codes';
 
 export const createProjectRoutes = () => {
     const projectRoutes = Router();
@@ -17,7 +17,7 @@ export const createProjectRoutes = () => {
 
     projectRoutes.put('/:id', async (req, res, next) => {
         try {
-            console.log("body", req.body);
+            console.log('body', req.body);
 
             let project = await DbProject.updateOne({ _id: req.params.id }, req.body);
             res.sendStatus(StatusCodes.CREATED);
@@ -59,4 +59,4 @@ export const createProjectRoutes = () => {
     });
 
     return projectRoutes;
-}
+};

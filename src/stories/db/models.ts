@@ -1,6 +1,6 @@
 import mongoose, { model, Schema, Document } from 'mongoose';
-import uniqueValidator from "mongoose-unique-validator";
-import httpErrors from "mongoose-errors";
+import uniqueValidator from 'mongoose-unique-validator';
+import httpErrors from 'mongoose-errors';
 
 // Interface pour les stories
 interface IStory extends Document {
@@ -18,8 +18,7 @@ const dbStorySchema = new Schema<IStory>({
 dbStorySchema.plugin(uniqueValidator);
 dbStorySchema.plugin(httpErrors);
 
-// Modèle Story
-const DbStory = model<IStory>('Story', dbStorySchema);
+const DbStory = mongoose.models.Story || model<IStory>('Story', dbStorySchema);
 
 // Interface pour les projets
 interface IProject extends Document {
@@ -48,19 +47,22 @@ const dbProjectSchema = new Schema<IProject>({
     productOwner: { type: mongoose.Types.ObjectId, ref: 'User' },
     participants: [{ type: mongoose.Types.ObjectId, ref: 'User' }],
     sprints: [{ id: Number, startDate: Date, endDate: Date }],
-    stories: [{
-        story: { type: mongoose.Types.ObjectId, ref: 'Story' },
-        assignees: [{
-            user: { type: mongoose.Types.ObjectId, ref: 'User' },
-            tasks: [Number]
-        }]
-    }]
+    stories: [
+        {
+            story: { type: mongoose.Types.ObjectId, ref: 'Story' },
+            assignees: [
+                {
+                    user: { type: mongoose.Types.ObjectId, ref: 'User' },
+                    tasks: [Number]
+                }
+            ]
+        }
+    ]
 });
 
 dbProjectSchema.plugin(uniqueValidator);
 dbProjectSchema.plugin(httpErrors);
 
-// Modèle Project
-const DbProject = model<IProject>('Project', dbProjectSchema);
+const DbProject = mongoose.models.Project || model<IProject>('Project', dbProjectSchema);
 
 export { DbProject, dbProjectSchema, DbStory, dbStorySchema };

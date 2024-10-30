@@ -1,9 +1,8 @@
-import { JwtPayload, sign, verify, } from 'jsonwebtoken';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import { DbUser } from './db/models';
 import { Request, Response } from 'express';
 import { hash } from 'bcrypt';
-import { TokenData, UserData } from './models'
-
+import { TokenData, UserData } from './models';
 
 export function createAccessToken(user: TokenData) {
     return sign(user, process.env.JWT_ACCESS_TOKEN_SECRET!, {
@@ -41,11 +40,11 @@ export async function createTokenUser(user: UserData, req: Request) {
         name: user.name,
         email: user.email,
         roles: []
-    }
+    };
 }
 
 export async function createUserFingerprint(req: Request) {
-    const xForwardedFor = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || "";
-    const ip = xForwardedFor.split(",")[0];
+    const xForwardedFor = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || '';
+    const ip = xForwardedFor.split(',')[0];
     return await hash(ip, 12);
 }

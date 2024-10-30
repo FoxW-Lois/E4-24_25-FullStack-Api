@@ -1,6 +1,6 @@
 import mongoose, { model, Schema, Document } from 'mongoose';
-import uniqueValidator from "mongoose-unique-validator";
-import httpErrors from "mongoose-errors";
+import uniqueValidator from 'mongoose-unique-validator';
+import httpErrors from 'mongoose-errors';
 
 // Interface pour typer les projets
 interface IProject extends Document {

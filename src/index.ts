@@ -13,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI!).then(async () => {
     app.listen(process.env.PORT, () => {
         console.log('Server started on port', process.env.PORT);
     });
-})
+});
 
 const everySomething = process.env.SCHEDULE_CLEANING_FREQUENCY || '* * * * *';
 schedule(everySomething, cleanExpiredAccessTokensFromDB);

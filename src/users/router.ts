@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response, Router } from "express";
-import { DbUser } from "../auth/db/models";
+import { NextFunction, Request, Response, Router } from 'express';
+import { DbUser } from '../auth/db/models';
 
 export const createUserRoutes = () => {
-    const userRoutes = Router()
+    const userRoutes = Router();
     userRoutes.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const user = (await DbUser.findOne({ _id: req.params.id }))!;
@@ -15,8 +15,15 @@ export const createUserRoutes = () => {
 
     userRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const users = (await DbUser.find().limit(20).populate("roles"))!;
-            res.json(users.map(u => ({ _id: u._id, name: u.name, email: u.email, roles: u.roles })));
+            const users = (await DbUser.find().limit(20).populate('roles'))!;
+            res.json(
+                users.map((u) => ({
+                    _id: u._id,
+                    name: u.name,
+                    email: u.email,
+                    roles: u.roles
+                }))
+            );
         } catch (error) {
             console.log(error);
             next(error);
@@ -24,4 +31,4 @@ export const createUserRoutes = () => {
     });
 
     return userRoutes;
-}
+};
