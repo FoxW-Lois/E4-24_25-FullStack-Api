@@ -12,9 +12,11 @@ import { createTasksRoutes } from './tasks/router';
 import { createSprintRoutes } from './sprints/router';
 import helmet from 'helmet';
 import lusca from 'lusca';
+import cors from 'cors';
 
 export const createApp = () => {
     const app = express();
+    app.use(cors('*' as any));
     app.use(helmet());
     app.use(lusca());
 
@@ -25,11 +27,11 @@ export const createApp = () => {
     // app.use(createAuthRoutes());
     app.use(express.static('./src/public'));
     app.use('/api', createAuthRoutes());
-    app.use('/api/projects', checkAccessToken, createProjectRoutes());
-    app.use('/api/users', checkAccessToken, createUserRoutes());
-    app.use('/api/stories', checkAccessToken, createStoriesRoutes());
-    app.use('/api/tasks', checkAccessToken, createTasksRoutes());
-    app.use('/api/sprints', checkAccessToken, createSprintRoutes());
+    app.use('/api/projects', /*checkAccessToken,*/ createProjectRoutes());
+    app.use('/api/users', /*checkAccessToken,*/ createUserRoutes());
+    app.use('/api/stories', /*checkAccessToken,*/ createStoriesRoutes());
+    app.use('/api/tasks', /*checkAccessToken,*/ createTasksRoutes());
+    app.use('/api/sprints', /*checkAccessToken,*/ createSprintRoutes());
     // app.get('/', checkAccessToken, (req: express.Request, res: express.Response) => {
     //     res.send('Hello World!');
     // });

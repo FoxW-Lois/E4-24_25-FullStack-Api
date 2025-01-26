@@ -1,10 +1,10 @@
 {
   "name": "app-back",
   "version": "0.0.0",
-  "description": "app de demo pour les cours E4 Full Stack Back",
+  "description": "App demo E4 Fullstack projet",
   "main": "index.js",
   "scripts": {
-    "dev": "node -r ts-node/register --watch --env-file=.env src/index.ts",
+    "dev": "node -r ts-node/register --watch  src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier src/**/*.{js,ts,tsx} --write"
   },
@@ -14,8 +14,12 @@
     "node": "20.18.0"
   },
   "dependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "errorhandler": "^1.5.1",
     "express": "^4.21.1",
     "formator": "^0.0.14",
@@ -28,9 +32,11 @@
     "mongoose-errors": "^1.1.3",
     "mongoose-unique-validator": "github:rems2rems/mongoose-unique-validator",
     "node-cron": "^3.0.3",
+    "react-router-dom": "^7.1.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.7",
     "@types/errorhandler": "^1.5.3",
@@ -44,6 +50,8 @@
     "@types/mongoose-unique-validator": "^1.0.9",
     "@types/node": "^22.7.7",
     "@types/node-cron": "^3.0.11",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
     "node-cron": "^3.0.3",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2",
