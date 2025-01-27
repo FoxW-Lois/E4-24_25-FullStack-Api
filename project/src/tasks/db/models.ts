@@ -3,15 +3,15 @@ import uniqueValidator from 'mongoose-unique-validator';
 import httpErrors from 'mongoose-errors';
 
 interface ITask extends Document {
-    id: number;
-    name: string;
-    done: boolean;
+	id: number;
+	name: string;
+	done: boolean;
 }
 
 const dbTaskSchema = new Schema<ITask>({
-    id: { type: Number, required: true },
-    name: { type: String, required: true },
-    done: { type: Boolean, required: true }
+	id: { type: Number, required: true },
+	name: { type: String, required: true },
+	done: { type: Boolean, required: true }
 });
 
 dbTaskSchema.plugin(uniqueValidator);

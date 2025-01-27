@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ProjectList from '../components/ProjectList';
-import ProjectDetails from '../components/ProjectDetails';
 import ProjectForm from '../components/ProjectForm';
 
 const ProjectsPage = () => {
-  // const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+	const [isCreating, setIsCreating] = useState<boolean>(false);
 
-  const handleBackToList = () => setSelectedProjectId(null);
+	const handleBackToList = () => {
+		setIsCreating(false);
+	};
 
-  return (
-    <div>
-      {/* {!selectedProjectId && <ProjectList onSelectProject={setSelectedProjectId} />} */}
-	    {!selectedProjectId && <ProjectList onSelectProject={(id) => setSelectedProjectId(id)} />}
-      {selectedProjectId && (
-        <ProjectDetails projectId={selectedProjectId} onBack={handleBackToList} />
-      )}
-    </div>
-  );
+	return (
+		<div style={{ padding: '20px' }}>
+			<h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Projects Management</h1>
+			{isCreating ? (
+				<div>
+					{/* Affiche le formulaire pour créer un projet */}
+					<ProjectForm onSuccess={handleBackToList} />
+					<button onClick={handleBackToList} style={{ marginTop: '10px' }}>
+						Annuler
+					</button>
+				</div>
+
+			) : (
+				<div>
+					{/* Affiche la liste des projets */}
+					<ProjectList />
+
+					<button onClick={() => setIsCreating(true)} style={{ display: 'block', margin: '20px auto' }}>
+						Nouveau projet
+					</button>
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default ProjectsPage;

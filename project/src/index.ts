@@ -10,11 +10,11 @@ console.log(process.version);
 const app = createApp();
 
 mongoose.connect(process.env.MONGO_URI!).then(async () => {
-    console.log('Connected to MongoDB!');
-    await seedDatabase();
-    app.listen(process.env.PORT, () => {
-        console.log('Server started on port', process.env.PORT);
-    });
+	console.log('Connected to MongoDB!');
+	await seedDatabase();
+	app.listen(process.env.PORT, () => {
+		console.log('Server started on port', process.env.PORT);
+	});
 });
 
 const everySomething = process.env.SCHEDULE_CLEANING_FREQUENCY || '* * * * *';

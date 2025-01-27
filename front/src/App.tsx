@@ -1,36 +1,51 @@
-// import React from 'react';
-// import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import ProjectsPage from './pages/ProjectsPage';
+import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProjectsPage from './pages/ProjectsPage';
+import ProjectDetails from './components/ProjectDetails';
 
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route path="/projects" element={<ProjectsPage />} />
-//       </Routes>
-//     </Router>
-//   );
-// };
+// function App() {
+//     const [count, setCount] = useState(0);
 
-// export default App;
+//     return (
+//         <>
+//             <div>
+//                 <a href="https://vite.dev" target="_blank">
+//                     <img src={viteLogo} className="logo" alt="Vite logo" />
+//                 </a>
+//                 <a href="https://react.dev" target="_blank">
+//                     <img src={reactLogo} className="logo react" alt="React logo" />
+//                 </a>
+//             </div>
+//             <h1>Vite + React</h1>
+//             <div className="card">
+//                 <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+//                 <p>
+//                     Edit <code>src/App.tsx</code> and save to test HMR
+//                 </p>
+//             </div>
+//             <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
+//         </>
+//     );
+// }
 
+function App(): React.JSX.Element {
+	return (
+		<BrowserRouter>
+			<main>
+				<Routes>
+					{/* <Route path='/' element={<Home />} />
+                    <Route path='/login' element={<Login />} /> */}
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import ProjectsPage from './pages/ProjectsPage'; // Page des projets
-import UsersPage from './pages/UsersPage'; // Page des utilisateurs
-import TasksPage from './pages/TasksPage'; // Page des tâches
-
-const App: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/users" element={<UsersPage />} />
-        <Route path="/tasks/*" element={<TasksPage />} />
-      </Routes>
-    </Router>
-  );
-};
+					<Route path="/projects" element={<ProjectsPage />} />
+                    <Route path='/projects/:id' element={<ProjectDetails />} />
+					{/* <Route path='/projects/add' element={<AddProject />} />
+                    
+  
+            <Route path='*' elemen:t={<NotFound />} /> */}
+				</Routes>
+			</main>
+		</BrowserRouter>
+	);
+}
 
 export default App;

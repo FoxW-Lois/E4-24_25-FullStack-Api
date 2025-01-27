@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchProjectById } from '../api/projects';
+import { useParams } from 'react-router-dom';
 
 interface Project {
-  _id: string;
-  name: string;
-  description: string;
-  leader: {
-    name: string;
-  };
+	_id: string;
+	name: string;
+	description: string;
+	leader: {
+		name: string;
+	};
 }
 
-interface ProjectDetailsProps {
-  projectId: string;
-  onBack: () => void;
-}
+const ProjectDetails = () => {
+	const [project, setProject] = useState<Project | null>(null);
 
-const ProjectDetails: React.FC<ProjectDetailsProps> = ({ projectId, onBack }) => {
-  const [project, setProject] = useState<Project | null>(null);
+	const id = useParams().id || '';
 
-  useEffect(() => {
-    const loadProject = async () => {
-      const data = await fetchProjectById(projectId);
-      setProject(data as Project); //setProject(data) has error
-    };
-    loadProject();
-  }, [projectId]);
+	useEffect(() => {
 
-  if (!project) return <div>Loading...</div>;
+		const loadProject = async () => {
+			const data = await fetchProjectById(id);
+			setProject(data as Project);
+		};
+		loadProject();
+	}, []);
 
-  return (
-    <div>
-      <h3>{project.name}</h3>
-      <p>Leader: {project.leader.name}</p>
-      <p>Description: {project.description}</p>
-      <button onClick={onBack}>Back to List</button>
-    </div>
-  );
+	if (!project) return <div>Loading...</div>;
+
+	return (
+		<div>
+			<h3>{project.name}</h3>
+			<p>Description: {project.description}</p>
+			{/* <p>Leader: {project.leader.name}</p> */}
+		</div>
+	);
 };
 
 export default ProjectDetails;
