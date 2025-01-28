@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchTaskById, Task } from '../api/tasks';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const TaskDetails: React.FC = () => {
-	const { id } = useParams<{ id: string }>();
-	const navigate = useNavigate();
+const TaskDetails = () => {
+	const id = useParams().id || '';
 	const [task, setTask] = useState<Task | null>(null);
+	
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadTask = async () => {
@@ -26,15 +27,10 @@ const TaskDetails: React.FC = () => {
 	return (
 		<div>
 			<h3>{task.title}</h3>
-			<p>
-				<strong>Description:</strong> {task.description}
-			</p>
-			<p>
-				<strong>Status:</strong> {task.status}
-			</p>
-			<p>
-				<strong>Sprint:</strong> {task.sprint}
-			</p>
+			<p>Description : {task.description}</p>
+			<p>Status : {task.status}</p>
+			{/* <p>Sprint : {task.sprint}</p> */}
+
 			<button onClick={handleBack}>Back to Task List</button>
 		</div>
 	);

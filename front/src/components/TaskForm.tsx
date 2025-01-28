@@ -1,38 +1,39 @@
 import React, { useState } from 'react';
 import { createTask, updateTask, Task } from '../api/tasks';
-import { useNavigate, useParams } from 'react-router-dom';
 
 interface TaskFormProps {
-	task?: Task; // Si une tâche est fournie, cela permettra de modifier une tâche existante
+	task?: Task; // Si une tâche est fournie, permet de modifier une tâche existante
+	onSuccess: () => void;
 }
 
-const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ task, onSuccess }) => {
+	const [formTaskData, setFormTaskData] = useState({ title: '', description: '', status:'' });
+
 	const [title, setTitle] = useState(task ? task.title : '');
 	const [description, setDescription] = useState(task ? task.description : '');
 	const [status, setStatus] = useState(task ? task.status : 'New');
-	const [sprint, setSprint] = useState(task ? task.sprint : '');
-	const navigate = useNavigate();
-	const { id } = useParams<{ id: string }>();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const taskData = { title, description, status, sprint, createdAt: '', updatedAt: '' };
+		// const formTaskData = { title, description, status, sprint, createdAt: '', updatedAt: '' };
 
-		if (task) {
-			// Si une tâche existe, on effectue une mise à jour
-			await updateTask(task._id, taskData);
-		} else {
-			// Sinon, on crée une nouvelle tâche
-			await createTask(taskData);
+		if (task) { // Si tâche existe, mise à jour
+			await updateTask(task._id, formTaskData);
+		} else { // Sinon nouvelle tâche
+			await createTask(formTaskData);
 		}
+		onSuccess();
+	};
 
-		navigate('/tasks'); // Redirection vers la liste des tâches
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		const { title, value } = e.target;
+		setFormTaskData({ ...formTaskData, [title]: value });
 	};
 
 	return (
 		<form onSubmit={handleSubmit}>
 			<div>
-				<label>Title</label>
+				<label>Titre</label>
 				<input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
 			</div>
 			<div>
@@ -47,11 +48,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ task }) => {
 					<option value="Completed">Completed</option>
 				</select>
 			</div>
-			<div>
-				<label>Sprint</label>
-				<input type="text" value={sprint} onChange={(e) => setSprint(e.target.value)} required />
-			</div>
-			<button type="submit">{task ? 'Update Task' : 'Create Task'}</button>
+			<button type="submit">{task ? 'Mettre à jour' : 'Créer'} Tâche</button>
 		</form>
 	);
 };

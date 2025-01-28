@@ -14,7 +14,7 @@ const ProjectsPage = () => {
 			<h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Projects Management</h1>
 			{isCreating ? (
 				<div>
-					{/* Affiche le formulaire pour créer un projet */}
+					{/* Formulaire créer un projet */}
 					<ProjectForm onSuccess={handleBackToList} />
 					<button onClick={handleBackToList} style={{ marginTop: '10px' }}>
 						Annuler
@@ -23,7 +23,7 @@ const ProjectsPage = () => {
 
 			) : (
 				<div>
-					{/* Affiche la liste des projets */}
+					{/* Liste des projets */}
 					<ProjectList />
 
 					<button onClick={() => setIsCreating(true)} style={{ display: 'block', margin: '20px auto' }}>

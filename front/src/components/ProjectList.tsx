@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
-import { fetchProjects } from '../api/projects';
+import { fetchProjects, Project } from '../api/projects';
 import { useNavigate } from 'react-router-dom';
-
-// Type pour représenter un projet
-interface Project {
-	_id: string;
-	name: string;
-}
 
 const ProjectList = () => {
 	const [projects, setProjects] = useState<Project[]>([]);

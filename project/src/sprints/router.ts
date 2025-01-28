@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { DbSprint } from './db/models'; // Assurez-vous que le chemin est correct
+import { DbSprint } from './db/models';
 import { StatusCodes } from 'http-status-codes';
 
 export const createSprintRoutes = () => {

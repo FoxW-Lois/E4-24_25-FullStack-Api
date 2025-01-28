@@ -1,9 +1,8 @@
 import { hash } from 'bcrypt';
 import { DbRole, DbUser } from '../auth/db/models';
-import { DbProject } from '../projects/db/models';
 
 export async function seedDatabase() {
-	await clearDb();
+	// await clearDb();
 	let users = await DbUser.find();
 	console.log(users.map((u) => u.name));
 

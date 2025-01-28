@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchTasks, Task } from '../api/tasks';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const TaskList: React.FC = () => {
+const TaskList = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
 
 	useEffect(() => {
@@ -13,13 +13,19 @@ const TaskList: React.FC = () => {
 		loadTasks();
 	}, []);
 
+	const navigate = useNavigate();
+	function onSelectTask(id: string) {
+		navigate(`/tasks/${id}`);
+	}
+	
 	return (
 		<div>
-			<h2>Tasks</h2>
+			<h2>Tâches</h2>
 			<ul>
 				{tasks.map((task) => (
 					<li key={task._id}>
-						<Link to={`/tasks/${task._id}`}>{task.title}</Link> - {task.status}
+						<span>{task.title}</span>
+						<button onClick={() => onSelectTask(task._id)}>Details</button>
 					</li>
 				))}
 			</ul>

@@ -1,23 +1,14 @@
 import { useEffect, useState } from 'react';
-import { fetchProjectById } from '../api/projects';
-import { useParams } from 'react-router-dom';
-
-interface Project {
-	_id: string;
-	name: string;
-	description: string;
-	leader: {
-		name: string;
-	};
-}
+import { fetchProjectById, Project } from '../api/projects';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ProjectDetails = () => {
+	const id = useParams().id || '';
 	const [project, setProject] = useState<Project | null>(null);
 
-	const id = useParams().id || '';
+	const navigate = useNavigate();
 
 	useEffect(() => {
-
 		const loadProject = async () => {
 			const data = await fetchProjectById(id);
 			setProject(data as Project);
@@ -27,11 +18,17 @@ const ProjectDetails = () => {
 
 	if (!project) return <div>Loading...</div>;
 
+	const handleBack = () => {
+		navigate('/projects');
+	};
+
 	return (
 		<div>
 			<h3>{project.name}</h3>
 			<p>Description: {project.description}</p>
 			{/* <p>Leader: {project.leader.name}</p> */}
+
+			<button onClick={handleBack}>Retour</button>
 		</div>
 	);
 };

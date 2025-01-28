@@ -1,41 +1,39 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:4000/tasks';
+const API_BASE_URL = 'http://localhost:3000/api/tasks';
 
-// Type pour représenter une tâche
 export interface Task {
 	_id: string;
 	title: string;
-	description: string;
-	status: string;
-	sprint: string; // Lien vers le sprint appartenant à la tâche
-	createdAt: string;
-	updatedAt: string;
+	description?: string;
+	status?: string;
 }
 
-// Fonction pour récupérer toutes les tâches
+// Récupère toutes les tâches
 export const fetchTasks = async (): Promise<Task[]> => {
 	const response = await axios.get<Task[]>(API_BASE_URL);
 	return response.data;
 };
 
-// Fonction pour récupérer une tâche spécifique par ID
+// Récupère une tâche par ID
 export const fetchTaskById = async (id: string): Promise<Task> => {
 	const response = await axios.get<Task>(`${API_BASE_URL}/${id}`);
 	return response.data;
 };
 
-// Fonction pour créer une nouvelle tâche
-export const createTask = async (taskData: Omit<Task, '_id'>): Promise<void> => {
-	await axios.post(`${API_BASE_URL}/sprint`, taskData);
+// Crée une nouvelle tâche
+export const createTask = async (taskData: Partial<Task>): Promise<Task> => {
+	const response = await axios.post<Task>(API_BASE_URL, taskData);
+	return response.data;
 };
 
-// Fonction pour mettre à jour une tâche existante
-export const updateTask = async (id: string, taskData: Partial<Task>): Promise<void> => {
-	await axios.put(`${API_BASE_URL}/${id}`, taskData);
+// Met à jour une tâche
+export const updateTask = async (id: string, taskData: Partial<Task>): Promise<Task> => {
+	const response = await axios.put<Task>(`${API_BASE_URL}/${id}`, taskData);
+	return response.data;
 };
 
-// Fonction pour supprimer une tâche
+// Supprime une tâche
 export const deleteTask = async (id: string): Promise<void> => {
 	await axios.delete(`${API_BASE_URL}/${id}`);
 };

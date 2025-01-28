@@ -11,9 +11,9 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ projectId, onSuccess }) => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (projectId) {
+		if (projectId) { // Si projet existe, mise à jour
 			await updateProject(projectId, formData);
-		} else {
+		} else { // Sinon nouveau projet
 			await createProject(formData);
 		}
 		onSuccess();
