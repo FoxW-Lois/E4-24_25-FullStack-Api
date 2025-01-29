@@ -14,7 +14,7 @@ const TasksPage = () => {
 		<Container maxWidth="md">
 			<Box textAlign="center" my={4}>
 				<Typography variant="h4" component="h1" gutterBottom>
-					Gestion des Tâches
+					Tâches
 				</Typography>
 			</Box>
 			{isCreating ? (

@@ -6,7 +6,7 @@ const UsersPage = () => {
 		<Container maxWidth="md">
 			<Box textAlign="center" my={4}>
 				<Typography variant="h4" component="h1" gutterBottom>
-					Gestion des Utilisateurs
+					Utilisateurs
 				</Typography>
 			</Box>
 			<UserList />

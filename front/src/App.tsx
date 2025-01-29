@@ -1,24 +1,38 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetails from './components/ProjectDetails';
 import TaskDetails from './components/TaskDetails';
 import TasksPage from './pages/TasksPage';
 import UsersPage from './pages/UsersPage';
 import UserDetails from './components/UserDetails';
-import { Container, Box } from '@mui/material';
+import { Container, AppBar, Button, Toolbar } from '@mui/material';
 import Logo from './logo-fav.png';
 
 function App(): React.JSX.Element {
 	return (
 		<>
 			<BrowserRouter>
+				<AppBar position="static" color="primary">
+					<Toolbar>
+						<img
+							src={Logo}
+							alt="GestProj Logo"
+							style={{ maxWidth: '50px', height: 'auto', marginRight: '10px' }}
+						/>
+						<Button color="inherit" component={Link} to="/projects">
+							Projects
+						</Button>
+						<Button color="inherit" component={Link} to="/tasks">
+							Tasks
+						</Button>
+						<Button color="inherit" component={Link} to="/users">
+							Users
+						</Button>
+					</Toolbar>
+				</AppBar>
+
 				<Container maxWidth="md">
-					<Box textAlign="center" my={4}>
-						<Box textAlign="center" my={4}>
-							<img src={Logo} alt="GestProj Logo" style={{ maxWidth: '200px', height: 'auto' }} />
-						</Box>
-					</Box>
 					<Routes>
 						{/* <Route path='/' element={<Home />} />
 						<Route path='/login' element={<Login />} /> */}

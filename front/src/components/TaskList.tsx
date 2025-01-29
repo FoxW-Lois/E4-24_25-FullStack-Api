@@ -22,7 +22,7 @@ const TaskList = () => {
 	return (
 		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
 			<Typography variant="h6" gutterBottom>
-				Tâches
+				Liste des tâches
 			</Typography>
 			{tasks.map((task) => (
 				<Card key={task._id} sx={{ mb: 2 }}>

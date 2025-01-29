@@ -22,7 +22,7 @@ const UserList = () => {
 	return (
 		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
 			<Typography variant="h6" gutterBottom>
-				Utilisateurs
+				Liste des utilisateurs
 			</Typography>
 			{users.map((user) => (
 				<Card key={user._id} sx={{ mb: 2 }}>
