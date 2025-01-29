@@ -24,11 +24,11 @@ const ProjectDetails = () => {
 
 	return (
 		<div>
-			<h3>{project.name}</h3>
+			<h3>{project.name}</h3>d
 			<p>Description: {project.description}</p>
 			{/* <p>Leader: {project.leader.name}</p> */}
 
-			<button onClick={handleBack}>Retour</button>
+			<button onClick={handleBack}>Retour à la liste des projets</button>
 		</div>
 	);
 };

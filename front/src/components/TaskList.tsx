@@ -17,7 +17,7 @@ const TaskList = () => {
 	function onSelectTask(id: string) {
 		navigate(`/tasks/${id}`);
 	}
-	
+
 	return (
 		<div>
 			<h2>Tâches</h2>
@@ -25,7 +25,7 @@ const TaskList = () => {
 				{tasks.map((task) => (
 					<li key={task._id}>
 						<span>{task.title}</span>
-						<button onClick={() => onSelectTask(task._id)}>Details</button>
+						<button onClick={() => onSelectTask(task._id)}>Détails</button>
 					</li>
 				))}
 			</ul>

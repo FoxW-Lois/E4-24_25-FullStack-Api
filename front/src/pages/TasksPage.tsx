@@ -20,7 +20,6 @@ const TasksPage = () => {
 						Annuler
 					</button>
 				</div>
-
 			) : (
 				<div>
 					{/* Liste des tâches */}

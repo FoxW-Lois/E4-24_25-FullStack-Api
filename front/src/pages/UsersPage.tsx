@@ -1,25 +1,14 @@
-import React, { useState } from 'react';
 import UserList from '../components/UserList';
-import UserDetails from '../components/UserDetails';
 
-const UsersPage: React.FC = () => {
-	const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
-	const handleSelectUser = (id: string) => {
-		setSelectedUserId(id);
-	};
-
-	const handleBack = () => {
-		setSelectedUserId(null);
-	};
+const UsersPage = () => {
 
 	return (
-		<div>
-			{!selectedUserId ? (
-				<UserList onSelectUser={handleSelectUser} />
-			) : (
-				<UserDetails userId={selectedUserId} onBack={handleBack} />
-			)}
+		<div style={{ padding: '20px' }}>
+			<h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Users Management</h1>
+			<div>
+				{/* Liste des utilisateurs */}
+				<UserList />
+			</div>
 		</div>
 	);
 };

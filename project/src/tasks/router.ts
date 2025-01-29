@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 export const createTasksRoutes = () => {
 	const TaskRoutes = Router();
-	TaskRoutes.post('/',  (req, res, next) => {
+	TaskRoutes.post('/', (req, res, next) => {
 		try {
 			const newTask = new DbTask(req.body);
 			newTask.save();
@@ -29,40 +29,16 @@ export const createTasksRoutes = () => {
 		}
 	});
 
-	// TaskRoutes.get('/:id', async (req, res, next) => {
-	// 	try {
-	// 		const task = await DbTask.findById(req.params.id);
-	// 		if (!task) {
-	// 			res.sendStatus(StatusCodes.NOT_FOUND);
-	// 		} else {
-	// 			res.status(StatusCodes.OK).json(task);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		next(error);
-	// 	}
-	// });
-
 	TaskRoutes.get('/:id', async (req, res, next) => {
 		try {
 			let task = await DbTask.findById(req.params.id);
-			task?.populate('tache');
+			// task?.populate('tasks');
 			res.json(task);
 		} catch (error) {
 			console.log(error);
 			next(error);
 		}
 	});
-
-	// TaskRoutes.get('/', async (req, res, next) => {
-	// 	try {
-	// 		const tasks = await DbTask.find().limit(20);
-	// 		res.status(StatusCodes.OK).json(tasks);
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		next(error);
-	// 	}
-	// });
 
 	TaskRoutes.get('/', async (req, res, next) => {
 		try {

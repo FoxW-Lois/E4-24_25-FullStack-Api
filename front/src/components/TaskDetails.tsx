@@ -5,18 +5,16 @@ import { useParams, useNavigate } from 'react-router-dom';
 const TaskDetails = () => {
 	const id = useParams().id || '';
 	const [task, setTask] = useState<Task | null>(null);
-	
+
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const loadTask = async () => {
-			if (id) {
-				const data = await fetchTaskById(id);
-				setTask(data);
-			}
+			const data = await fetchTaskById(id);
+			setTask(data as Task);
 		};
 		loadTask();
-	}, [id]);
+	}, []);
 
 	if (!task) return <div>Loading...</div>;
 
@@ -29,9 +27,9 @@ const TaskDetails = () => {
 			<h3>{task.title}</h3>
 			<p>Description : {task.description}</p>
 			<p>Status : {task.status}</p>
-			{/* <p>Sprint : {task.sprint}</p> */}
+			{/* <p>Projet : {task.project}</p> */}
 
-			<button onClick={handleBack}>Back to Task List</button>
+			<button onClick={handleBack}>Retour à la liste des tâches</button>
 		</div>
 	);
 };

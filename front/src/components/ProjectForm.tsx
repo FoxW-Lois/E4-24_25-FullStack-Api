@@ -11,9 +11,11 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ projectId, onSuccess }) => {
 	console.log(formData);
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		if (projectId) { // Si projet existe, mise à jour
+		if (projectId) {
+			// Si projet existe, mise à jour
 			await updateProject(projectId, formData);
-		} else { // Sinon nouveau projet
+		} else {
+			// Sinon nouveau projet
 			await createProject(formData);
 		}
 		onSuccess();
@@ -27,7 +29,12 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ projectId, onSuccess }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<input name="name" value={formData.name} onChange={handleChange} placeholder="Nom du projet" />
-			<textarea name="description" value={formData.description} onChange={handleChange} placeholder="Description du projet"/>
+			<textarea
+				name="description"
+				value={formData.description}
+				onChange={handleChange}
+				placeholder="Description du projet"
+			/>
 			<button type="submit">{projectId ? 'Mettre à jour' : 'Créer'} Projet</button>
 		</form>
 	);

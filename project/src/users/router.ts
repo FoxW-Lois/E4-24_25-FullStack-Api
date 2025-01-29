@@ -1,19 +1,20 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { DbUser } from '../auth/db/models';
 
 export const createUserRoutes = () => {
 	const userRoutes = Router();
-	userRoutes.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+	userRoutes.get('/:id', async (req, res, next) => {
 		try {
-			const user = (await DbUser.findOne({ _id: req.params.id }))!;
-			res.json({ _id: user._id, name: user.name, email: user.email });
+			let user = await DbUser.findById(req.params.id);
+			// user?.populate('user');
+			res.json(user);
 		} catch (error) {
 			console.log(error);
 			next(error);
 		}
 	});
 
-	userRoutes.get('/', async (req: Request, res: Response, next: NextFunction) => {
+	userRoutes.get('/', async (req, res, next) => {
 		try {
 			const users = (await DbUser.find().limit(20).populate('roles'))!;
 			res.json(

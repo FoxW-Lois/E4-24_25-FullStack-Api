@@ -20,7 +20,6 @@ const ProjectsPage = () => {
 						Annuler
 					</button>
 				</div>
-
 			) : (
 				<div>
 					{/* Liste des projets */}

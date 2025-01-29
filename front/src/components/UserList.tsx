@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchUsers, User } from '../api/users';
+import { useNavigate } from 'react-router-dom';
 
-// Type pour les props du composant
-interface UserListProps {
-	onSelectUser: (id: string) => void;
-}
-
-const UserList: React.FC<UserListProps> = ({ onSelectUser }) => {
+const UserList = () => {
 	const [users, setUsers] = useState<User[]>([]);
 
 	useEffect(() => {
@@ -16,16 +12,19 @@ const UserList: React.FC<UserListProps> = ({ onSelectUser }) => {
 		};
 		loadUsers();
 	}, []);
+	
+	const navigate = useNavigate();
+	function onSelectUser(id: string) {
+		navigate(`/users/${id}`);
+	}
 
 	return (
 		<div>
-			<h2>Users</h2>
+			<h2>Utilisateurs</h2>
 			<ul>
 				{users.map((user) => (
 					<li key={user._id}>
-						<span>
-							{user.name} - {user.email}
-						</span>
+						<span>{user.name} - {user.email}</span>
 						<button onClick={() => onSelectUser(user._id)}>Details</button>
 					</li>
 				))}

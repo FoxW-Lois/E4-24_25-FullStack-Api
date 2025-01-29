@@ -25,7 +25,7 @@ const ProjectList = () => {
 				{projects.map((project) => (
 					<li key={project._id}>
 						<span>{project.name}</span>
-						<button onClick={() => onSelectProject(project._id)}>Details</button>
+						<button onClick={() => onSelectProject(project._id)}>Détails</button>
 					</li>
 				))}
 			</ul>

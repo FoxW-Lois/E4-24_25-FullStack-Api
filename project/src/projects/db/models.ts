@@ -16,7 +16,7 @@ interface IProject extends Document {
 
 const dbProjectSchema = new Schema<IProject>({
 	name: { type: String, unique: true },
-	description: {type: String},
+	description: { type: String },
 	leader: { type: mongoose.Types.ObjectId, ref: 'User' },
 	scrumMaster: { type: mongoose.Types.ObjectId, ref: 'User' },
 	productOwner: { type: mongoose.Types.ObjectId, ref: 'User' },
