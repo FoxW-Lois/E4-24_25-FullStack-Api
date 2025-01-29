@@ -21,7 +21,7 @@ const TaskList = () => {
 
 	async function onDeleteTask(id: string) {
 		await deleteTask(id);
-		
+
 		const updatedTasks = tasks.filter((task) => task._id !== id);
 		setTasks(updatedTasks);
 	}

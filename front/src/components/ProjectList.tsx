@@ -18,10 +18,10 @@ const ProjectList = () => {
 	function onSelectProject(id: string) {
 		navigate(`/projects/${id}`);
 	}
-	
+
 	async function onDeleteProject(id: string) {
 		await deleteProject(id);
-		
+
 		const updatedProjects = projects.filter((project) => project._id !== id);
 		setProjects(updatedProjects);
 	}

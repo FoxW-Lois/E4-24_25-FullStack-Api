@@ -52,7 +52,7 @@ export const createTasksRoutes = () => {
 
 	taskRoutes.delete('/:id', async (req, res, next) => {
 		try {
-			await DbTask.deleteOne({ _id: req.params.id })
+			await DbTask.deleteOne({ _id: req.params.id });
 			res.sendStatus(StatusCodes.OK);
 		} catch (error) {
 			console.log(error);

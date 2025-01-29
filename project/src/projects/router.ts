@@ -50,7 +50,7 @@ export const createProjectRoutes = () => {
 
 	projectRoutes.delete('/:id', async (req, res, next) => {
 		try {
-			await DbProject.deleteOne({ _id: req.params.id })
+			await DbProject.deleteOne({ _id: req.params.id });
 			res.sendStatus(StatusCodes.OK);
 		} catch (error) {
 			console.log(error);
