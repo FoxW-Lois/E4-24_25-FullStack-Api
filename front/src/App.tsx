@@ -7,6 +7,7 @@ import TasksPage from './pages/TasksPage';
 import UsersPage from './pages/UsersPage';
 import UserDetails from './components/UserDetails';
 import { Container, Box } from '@mui/material';
+import Logo from './logo-fav.png';
 
 function App(): React.JSX.Element {
 	return (
@@ -15,7 +16,7 @@ function App(): React.JSX.Element {
 				<Container maxWidth="md">
 					<Box textAlign="center" my={4}>
 						<Box textAlign="center" my={4}>
-							<img src="logo.png" alt="GestProj Logo" style={{ maxWidth: '200px', height: 'auto' }} />
+							<img src={Logo} alt="GestProj Logo" style={{ maxWidth: '200px', height: 'auto' }} />
 						</Box>
 					</Box>
 					<Routes>
