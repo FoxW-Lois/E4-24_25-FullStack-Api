@@ -1,5 +1,7 @@
 import { hash } from 'bcrypt';
 import { DbRole, DbUser } from '../auth/db/models';
+import { DbProject } from '../projects/db/models';
+import { DbTask } from '../tasks/db/models';
 
 export async function seedDatabase() {
 	// await clearDb();
@@ -120,5 +122,17 @@ export async function clearDb() {
 	for (const role of roles) {
 		console.log('deleting role ', role._id, '...');
 		await DbRole.deleteOne({ _id: role._id });
+	}
+
+	const projects = await DbProject.find();
+	for (const project of projects) {
+		console.log('deleting role ', project._id, '...');
+		await DbProject.deleteOne({ _id: project._id });
+	}
+
+	const tasks = await DbTask.find();
+	for (const task of tasks) {
+		console.log('deleting role ', task._id, '...');
+		await DbTask.deleteOne({ _id: task._id });
 	}
 }

@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetails from './components/ProjectDetails';
 import TaskDetails from './components/TaskDetails';
@@ -14,10 +14,6 @@ function App(): React.JSX.Element {
                 <img src={viteLogo} className="logo" alt="Vite logo" />
 				<img src={reactLogo} className="logo react" alt="React logo" />
             </div>
-			<div>
-				{/* <button onClick={projects}>Projets</button>
-				<button onClick={tasks}>Tâches</button> */}
-			</div>
 			<BrowserRouter>
 				<main>
 					<Routes>

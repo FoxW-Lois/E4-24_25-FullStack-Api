@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 export const createTasksRoutes = () => {
 	const TaskRoutes = Router();
-	TaskRoutes.post('/task', async (req, res, next) => {
+	TaskRoutes.post('/',  (req, res, next) => {
 		try {
 			const newTask = new DbTask(req.body);
 			newTask.save();

@@ -23,6 +23,7 @@ export const fetchTaskById = async (id: string): Promise<Task> => {
 
 // Crée une nouvelle tâche
 export const createTask = async (taskData: Partial<Task>): Promise<Task> => {
+	console.log('taskData', taskData);
 	const response = await axios.post<Task>(API_BASE_URL, taskData);
 	return response.data;
 };
