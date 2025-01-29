@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchTasks, Task } from '../api/tasks';
+import { deleteTask, fetchTasks, Task } from '../api/tasks';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
@@ -19,6 +19,13 @@ const TaskList = () => {
 		navigate(`/tasks/${id}`);
 	}
 
+	async function onDeleteTask(id: string) {
+		await deleteTask(id);
+		
+		const updatedTasks = tasks.filter((task) => task._id !== id);
+		setTasks(updatedTasks);
+	}
+
 	return (
 		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
 			<Typography variant="h6" gutterBottom>
@@ -35,6 +42,14 @@ const TaskList = () => {
 							sx={{ mt: 1 }}
 						>
 							Détails
+						</Button>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={() => onDeleteTask(task._id)}
+							sx={{ mt: 1 }}
+						>
+							Supprimer
 						</Button>
 					</CardContent>
 				</Card>

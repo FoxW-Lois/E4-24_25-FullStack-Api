@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchProjects, Project } from '../api/projects';
+import { deleteProject, fetchProjects, Project } from '../api/projects';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
@@ -18,6 +18,13 @@ const ProjectList = () => {
 	function onSelectProject(id: string) {
 		navigate(`/projects/${id}`);
 	}
+	
+	async function onDeleteProject(id: string) {
+		await deleteProject(id);
+		
+		const updatedProjects = projects.filter((project) => project._id !== id);
+		setProjects(updatedProjects);
+	}
 
 	return (
 		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
@@ -35,6 +42,14 @@ const ProjectList = () => {
 							sx={{ mt: 1 }}
 						>
 							Détails
+						</Button>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={() => onDeleteProject(project._id)}
+							sx={{ mt: 1 }}
+						>
+							Supprimer
 						</Button>
 					</CardContent>
 				</Card>
