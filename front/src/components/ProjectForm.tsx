@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createProject, updateProject } from '../api/projects';
+import { Button, Box, TextField } from '@mui/material';
 
 interface ProjectFormProps {
 	projectId?: string;
@@ -27,16 +28,33 @@ const ProjectForm: React.FC<ProjectFormProps> = ({ projectId, onSuccess }) => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input name="name" value={formData.name} onChange={handleChange} placeholder="Nom du projet" />
-			<textarea
+		<Box
+			component="form"
+			onSubmit={handleSubmit}
+			sx={{ maxWidth: 600, margin: 'auto', mt: 4, display: 'flex', flexDirection: 'column', gap: 2 }}
+		>
+			<TextField
+				label="Nom du projet"
+				name="name"
+				value={formData.name}
+				onChange={handleChange}
+				fullWidth
+				required
+			/>
+			<TextField
+				label="Description du projet"
 				name="description"
 				value={formData.description}
 				onChange={handleChange}
-				placeholder="Description du projet"
+				fullWidth
+				multiline
+				rows={4}
+				required
 			/>
-			<button type="submit">{projectId ? 'Mettre à jour' : 'Créer'} Projet</button>
-		</form>
+			<Button type="submit" variant="contained" color="primary">
+				{projectId ? 'Mettre à jour' : 'Créer'} Projet
+			</Button>
+		</Box>
 	);
 };
 

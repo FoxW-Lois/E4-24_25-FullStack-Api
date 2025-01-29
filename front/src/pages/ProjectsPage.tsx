@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ProjectList from '../components/ProjectList';
 import ProjectForm from '../components/ProjectForm';
+import { Container, Box, Button, Typography } from '@mui/material';
 
 const ProjectsPage = () => {
 	const [isCreating, setIsCreating] = useState<boolean>(false);
@@ -10,27 +11,28 @@ const ProjectsPage = () => {
 	};
 
 	return (
-		<div style={{ padding: '20px' }}>
-			<h1 style={{ textAlign: 'center', marginBottom: '20px' }}>Projects Management</h1>
+		<Container maxWidth="md">
+			<Box textAlign="center" my={4}>
+				<Typography variant="h4" component="h1" gutterBottom>
+					Gestion des Projets
+				</Typography>
+			</Box>
 			{isCreating ? (
-				<div>
-					{/* Formulaire créer un projet */}
+				<Box textAlign="center">
 					<ProjectForm onSuccess={handleBackToList} />
-					<button onClick={handleBackToList} style={{ marginTop: '10px' }}>
+					<Button variant="contained" color="secondary" onClick={handleBackToList} sx={{ mt: 2 }}>
 						Annuler
-					</button>
-				</div>
+					</Button>
+				</Box>
 			) : (
-				<div>
-					{/* Liste des projets */}
+				<Box textAlign="center">
 					<ProjectList />
-
-					<button onClick={() => setIsCreating(true)} style={{ display: 'block', margin: '20px auto' }}>
+					<Button variant="contained" color="primary" onClick={() => setIsCreating(true)} sx={{ mt: 3 }}>
 						Nouveau projet
-					</button>
-				</div>
+					</Button>
+				</Box>
 			)}
-		</div>
+		</Container>
 	);
 };
 

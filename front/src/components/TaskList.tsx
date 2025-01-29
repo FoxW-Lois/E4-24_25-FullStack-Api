@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchTasks, Task } from '../api/tasks';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
 const TaskList = () => {
 	const [tasks, setTasks] = useState<Task[]>([]);
@@ -19,17 +20,26 @@ const TaskList = () => {
 	}
 
 	return (
-		<div>
-			<h2>Tâches</h2>
-			<ul>
-				{tasks.map((task) => (
-					<li key={task._id}>
-						<span>{task.title}</span>
-						<button onClick={() => onSelectTask(task._id)}>Détails</button>
-					</li>
-				))}
-			</ul>
-		</div>
+		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
+			<Typography variant="h6" gutterBottom>
+				Tâches
+			</Typography>
+			{tasks.map((task) => (
+				<Card key={task._id} sx={{ mb: 2 }}>
+					<CardContent>
+						<Typography variant="body1">{task.title}</Typography>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={() => onSelectTask(task._id)}
+							sx={{ mt: 1 }}
+						>
+							Détails
+						</Button>
+					</CardContent>
+				</Card>
+			))}
+		</Box>
 	);
 };
 

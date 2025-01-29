@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchUserById, User } from '../api/users';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Button } from '@mui/material';
 
 const UserDetails = () => {
 	const id = useParams().id || '';
@@ -23,13 +24,22 @@ const UserDetails = () => {
 	};
 
 	return (
-		<div>
-			<h3>{user.name}</h3>
-			<p>Email: {user.email}</p>
-			<p>Roles: {user.roles.join(', ')}</p>
-			
-			<button onClick={handleBack}>Retour à la liste des utilisateurs</button>
-		</div>
+		<Card sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
+			<CardContent>
+				<Typography variant="h5" component="div" gutterBottom>
+					{user.name}
+				</Typography>
+				<Typography variant="body1" color="text.secondary">
+					Email: {user.email}
+				</Typography>
+				<Typography variant="body2" color="text.secondary">
+					Roles: {user.roles.join(', ')}
+				</Typography>
+				<Button variant="contained" color="secondary" onClick={handleBack} sx={{ mt: 2 }}>
+					Retour à la liste des utilisateurs
+				</Button>
+			</CardContent>
+		</Card>
 	);
 };
 

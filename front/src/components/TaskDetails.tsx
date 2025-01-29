@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchTaskById, Task } from '../api/tasks';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Button } from '@mui/material';
 
 const TaskDetails = () => {
 	const id = useParams().id || '';
@@ -23,14 +24,22 @@ const TaskDetails = () => {
 	};
 
 	return (
-		<div>
-			<h3>{task.title}</h3>
-			<p>Description : {task.description}</p>
-			<p>Status : {task.status}</p>
-			{/* <p>Projet : {task.project}</p> */}
-
-			<button onClick={handleBack}>Retour à la liste des tâches</button>
-		</div>
+		<Card sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
+			<CardContent>
+				<Typography variant="h5" component="div" gutterBottom>
+					{task.title}
+				</Typography>
+				<Typography variant="body1" color="text.secondary" paragraph>
+					Description: {task.description}
+				</Typography>
+				<Typography variant="body2" color="text.secondary">
+					Status: {task.status}
+				</Typography>
+				<Button variant="contained" color="secondary" onClick={handleBack} sx={{ mt: 2 }}>
+					Retour à la liste des tâches
+				</Button>
+			</CardContent>
+		</Card>
 	);
 };
 

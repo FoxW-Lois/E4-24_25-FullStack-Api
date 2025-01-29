@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchProjects, Project } from '../api/projects';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
 const ProjectList = () => {
 	const [projects, setProjects] = useState<Project[]>([]);
@@ -19,17 +20,26 @@ const ProjectList = () => {
 	}
 
 	return (
-		<div>
-			<h2>Liste des projets</h2>
-			<ul>
-				{projects.map((project) => (
-					<li key={project._id}>
-						<span>{project.name}</span>
-						<button onClick={() => onSelectProject(project._id)}>Détails</button>
-					</li>
-				))}
-			</ul>
-		</div>
+		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
+			<Typography variant="h6" gutterBottom>
+				Liste des projets
+			</Typography>
+			{projects.map((project) => (
+				<Card key={project._id} sx={{ mb: 2 }}>
+					<CardContent>
+						<Typography variant="body1">{project.name}</Typography>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={() => onSelectProject(project._id)}
+							sx={{ mt: 1 }}
+						>
+							Détails
+						</Button>
+					</CardContent>
+				</Card>
+			))}
+		</Box>
 	);
 };
 

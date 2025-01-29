@@ -4,20 +4,20 @@ import ProjectsPage from './pages/ProjectsPage';
 import ProjectDetails from './components/ProjectDetails';
 import TaskDetails from './components/TaskDetails';
 import TasksPage from './pages/TasksPage';
-import viteLogo from './vite-logo.png';
-import reactLogo from './react-logo.png';
 import UsersPage from './pages/UsersPage';
 import UserDetails from './components/UserDetails';
+import { Container, Box } from '@mui/material';
 
 function App(): React.JSX.Element {
 	return (
 		<>
-			<div>
-				<img src={viteLogo} className="logo" alt="Vite logo" />
-				<img src={reactLogo} className="logo react" alt="React logo" />
-			</div>
 			<BrowserRouter>
-				<main>
+				<Container maxWidth="md">
+					<Box textAlign="center" my={4}>
+						<Box textAlign="center" my={4}>
+							<img src="logo.png" alt="GestProj Logo" style={{ maxWidth: '200px', height: 'auto' }} />
+						</Box>
+					</Box>
 					<Routes>
 						{/* <Route path='/' element={<Home />} />
 						<Route path='/login' element={<Login />} /> */}
@@ -32,7 +32,7 @@ function App(): React.JSX.Element {
 						{/* <Route path='/projects/add' element={<AddProject />} /> 
 						<Route path='*' elemen:t={<NotFound />} />*/}
 					</Routes>
-				</main>
+				</Container>
 			</BrowserRouter>
 		</>
 	);

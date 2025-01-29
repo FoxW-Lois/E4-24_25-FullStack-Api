@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { fetchUsers, User } from '../api/users';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
 const UserList = () => {
 	const [users, setUsers] = useState<User[]>([]);
@@ -12,24 +13,35 @@ const UserList = () => {
 		};
 		loadUsers();
 	}, []);
-	
+
 	const navigate = useNavigate();
 	function onSelectUser(id: string) {
 		navigate(`/users/${id}`);
 	}
 
 	return (
-		<div>
-			<h2>Utilisateurs</h2>
-			<ul>
-				{users.map((user) => (
-					<li key={user._id}>
-						<span>{user.name} - {user.email}</span>
-						<button onClick={() => onSelectUser(user._id)}>Details</button>
-					</li>
-				))}
-			</ul>
-		</div>
+		<Box sx={{ maxWidth: 600, margin: 'auto', mt: 4 }}>
+			<Typography variant="h6" gutterBottom>
+				Utilisateurs
+			</Typography>
+			{users.map((user) => (
+				<Card key={user._id} sx={{ mb: 2 }}>
+					<CardContent>
+						<Typography variant="body1">
+							{user.name} - {user.email}
+						</Typography>
+						<Button
+							variant="outlined"
+							color="primary"
+							onClick={() => onSelectUser(user._id)}
+							sx={{ mt: 1 }}
+						>
+							Détails
+						</Button>
+					</CardContent>
+				</Card>
+			))}
+		</Box>
 	);
 };
 
